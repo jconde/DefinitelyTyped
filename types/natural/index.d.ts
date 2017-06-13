@@ -67,6 +67,10 @@ declare var LancasterStemmer: {
     stem(token: string): string;
 }
 
+interface Classification {
+    label: string;
+    value: number;
+}
 interface BayesClassifierCallback { (err: any, classifier: any): void }
 declare class BayesClassifier {
     events: events.EventEmitter;
@@ -74,7 +78,7 @@ declare class BayesClassifier {
     addDocument(text: string[], stem: string): void;
     train(): void;
     classify(observation: string): string;
-    getClassifications(observation: string): string[];
+    getClassifications(observation: string): Classification[];
     save(filename: string, callback: BayesClassifierCallback): void;
     static load(filename: string, stemmer: Stemmer, callback: BayesClassifierCallback): void;
     static restore(classifier: any, stemmer?: Stemmer): BayesClassifier;
@@ -87,7 +91,7 @@ declare class LogisticRegressionClassifier {
     addDocument(text: string[], stem: string): void;
     train(): void;
     classify(observation: string): string;
-    getClassifications(observation: string): string[];
+    getClassifications(observation: string): Classification[];
     save(filename: string, callback: LogisticRegressionClassifierCallback): void;
     static load(filename: string, stemmer: Stemmer, callback: LogisticRegressionClassifierCallback): void;
     static restore(classifier: any, stemmer?: Stemmer): LogisticRegressionClassifier;
